@@ -1,7 +1,3 @@
-
-
-
-
 const {Engine, Render, Runner, World, Bodies} = Matter;
 
 const engine = Engine.create();
@@ -18,9 +14,13 @@ const render = Render.create({
 Render.run(render);
 Runner.run(Runner.create(), engine);
 
-//create a shape
-const shape = Bodies.rectangle(200,200,50,50, {
-    isStatic: true// want to show the shape and we don't want 
-    //it to ever move under any circumstance
-})
-World.add(world,shape); //show up
+//walls
+const walls = [
+    Bodies.rectangle(400,0, 800,40, {isStatic: true}),
+    Bodies.rectangle(400, 600, 800,40, {isStatic: true}),
+    Bodies.rectangle(0, 300, 40,600, {isStatic: true}),
+    Bodies.rectangle(800, 300, 40,600, {isStatic: true}),
+
+];
+World.add(world, walls);
+World.add(world, Bodies.rectangle(200, 200, 50, 50));
