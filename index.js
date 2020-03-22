@@ -1,4 +1,4 @@
-const { Engine, Render, Runner, World, Bodies } = Matter;
+const { Engine, Render, Runner, World, Bodies, Body } = Matter;
 
 const cells = 10;
 const width = 600;
@@ -173,9 +173,22 @@ World.add(world,ball);
 
 //research javascript keycode
 document.addEventListener('keydown', event =>{
-    if(event.keyCode ===87) console.log('move ball up');
-    if(event.keyCode ===68) console.log('move ball right');
-    if(event.keyCode ===83) console.log('move ball down');
-    if(event.keyCode ===65) console.log('move ball left');
+    const {x,y} = ball.velocity; // if ball stop, x=y=0
+    console.log(x,y);
+    if(event.keyCode ===87){
+        Body.setVelocity(ball, {x, y: y -5});//x=x, y=y-5
+    }
+    if(event.keyCode ===68){
+        Body.setVelocity(ball, {x: x +5, y});
+
+    } 
+    if(event.keyCode ===83){
+        Body.setVelocity(ball, {x, y: y+5});
+
+    } 
+    if(event.keyCode ===65){
+        Body.setVelocity(ball, {x: x-5, y});
+
+    } 
 })
 
