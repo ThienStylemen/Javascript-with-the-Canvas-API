@@ -3,6 +3,7 @@ const { Engine, Render, Runner, World, Bodies } = Matter;
 const cells = 3;
 const width = 600;
 const height = 600;
+const unitLength = width/cells;
 
 const engine = Engine.create();
 const { world } = engine;
@@ -112,13 +113,23 @@ stepThroughCell(startRow, startColumn);
 // console.log(grid);
 
 // loop array true: no wall, false: wall
-horizontals.forEach( row=>{ 
+horizontals.forEach( (row, rowIndex)=>{ 
             // each element called open and it's either true or false
-    row.forEach( (open)=>{
+    row.forEach( (open, colIndex)=>{
         if (open) return;   // don't draw anything
             /*There is no way to stop or break a forEach() loop other than by throwing an 
             exception. If you need such behavior, the forEach() method is the wrong tool. */
-        const wall = Bodies.rectangle()
+        const wall = Bodies.rectangle(
+            colIndex = colIndex*unitLength + unitLength/2,
+            rowIndex = rowIndex*unitLength + unitLength,
+            unitLength,
+            5,
+            {
+                isStatic: true
+            }
+        )
+        World.add(world, wall);
     })
+    
 });
 
