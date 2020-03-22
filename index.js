@@ -1,5 +1,6 @@
 const { Engine, Render, Runner, World, Bodies } = Matter;
 
+const cells =5;
 const width = 600;
 const height = 600;
 
@@ -33,21 +34,21 @@ World.add(world, walls);
 // map: Calls a defined callback function on each element of an array, 
 //and returns an array that contains the results.
  
-const grid = Array(3)
+const grid = Array(cells)
     .fill(null)
-    .map(() =>  Array(3).fill(false)); //we're going to generate a brand new and different array
+    .map(() =>  Array(cells).fill(false)); //we're going to generate a brand new and different array
 
 console.log(grid);
 grid[0].push(true); // console.log before and after this line have the same result!!!
 console.log(grid);
 
-const verticals = Array(2)
+const verticals = Array(cells)
     .fill(null)
-    .map(()=> Array(3).fill(false));
+    .map(()=> Array(cells-1).fill(false));
 
-const horizontals = Array(3)
+const horizontals = Array(cells-1)
     .fill(null)
-    .map( ()=> Array(2).fill(false));
+    .map( ()=> Array(cells).fill(false));
 
 console.log(verticals);
 console.log(horizontals);
