@@ -81,30 +81,31 @@ const stepThroughCell = (row, col) => {    // recursive func
     const neighbors = shuffle([
         [row - 1, col, 'up'],
         [row, col + 1, 'right'],
-        [row + 1, col, 'down'] ,
+        [row + 1, col, 'down'],
         [row, col - 1, 'left']
     ]);
     // For each neighbor ...
     for (let neighbor of neighbors) {
         const [nextRow, nextCol, direction] = neighbor;
         //see if that neighbors is out of bounds
-        if (nextRow < 0 || nextRow >= cells || nextCol < 0 || nextCol >= cells) 
+        if (nextRow < 0 || nextRow >= cells || nextCol < 0 || nextCol >= cells)
             continue;
         // if we have visited that neighbor, continue to the next 
         if (grid[nextRow][nextCol])
             continue;
         // remove a wall from either horizontals or vericals
-            // vericals
-        if (direction==='left') 
-            verticals[row][col-1] =true;
-        else if (direction==='right')
+        // vericals
+        if (direction === 'left')
+            verticals[row][col - 1] = true;
+        else if (direction === 'right')
             verticals[row][col] = true;
-        else if (direction==='up') 
-            horizontals[row-1][col] = true;
-        else if (direction==='down')
+        else if (direction === 'up')
+            horizontals[row - 1][col] = true;
+        else if (direction === 'down')
             horizontals[row][col] = true;
+        // visit that next cell
+        stepThroughCell(nextRow, nextCol);
     }
-    // visit that next cell
 }
 
 stepThroughCell(startRow, startColumn);
