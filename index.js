@@ -1,6 +1,6 @@
-const { Engine, Render, Runner, World, Bodies, Body } = Matter;
+const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 
-const cells = 10;
+const cells = 3;
 const width = 600;
 const height = 600;
 const unitLength = width/cells;
@@ -157,7 +157,8 @@ const goal = Bodies.rectangle(
     unitLength*0.7,
     unitLength*0.7,
     {
-        isStatic: true
+        isStatic: true,
+        label: 'goal'
     }
 )
 World.add(world,goal);
@@ -167,16 +168,17 @@ const ball = Bodies.circle(
     unitLength/2,
     unitLength/2,
     unitLength/3,
-    // {
-    //     isStatic: true
-    // }
+    // option object
+    {
+        label: 'ball'
+    }
 );
 World.add(world,ball);
 
 //research javascript keycode
 document.addEventListener('keydown', event =>{
     const {x,y} = ball.velocity; // if ball stop, x=y=0
-    console.log(x,y);
+    // console.log(x,y);
     if(event.keyCode ===87){
         Body.setVelocity(ball, {x, y: y -5});//x=x, y=y-5
     }
@@ -194,3 +196,15 @@ document.addEventListener('keydown', event =>{
     } 
 })
 
+// Win condition, and we need to destructure Events = Matter
+Events.on(engine,'collisionStart', event =>{
+    // console.log(event);
+    // collision have bodyA and bodyB elements 
+    event.pairs.forEach( (collision)=>{
+        // console.log(collision);
+        const labels= ['goal','ball'];
+        if (labels.includes(collision.bodyA.label) && labels.includes(collision.bodyB.label)){
+            console.log('USER WIN');   
+        }
+    });
+});
