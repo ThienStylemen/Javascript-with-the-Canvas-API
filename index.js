@@ -7,6 +7,8 @@ const unitLength = width/cells;
 
 const engine = Engine.create();
 const { world } = engine;
+// disable gravity
+engine.world.gravity.y = 0;
 
 const render = Render.create({
     element: document.body, // where we want to show
