@@ -95,6 +95,12 @@ const stepThroughCell = (row, col) => {    // recursive func
         if (grid[nextRow][nextCol])
             continue;
         // remove a wall from either horizontals or vericals
+            // vericals
+        if (direction=='left'){
+            verticals[row][col-1] =true;
+        }else if (direction=='right'){
+            verticals[row][col] = true;
+        }
 
     }
     // visit that next cell
