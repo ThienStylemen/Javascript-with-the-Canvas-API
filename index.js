@@ -70,7 +70,6 @@ const shuffle = (arr) => {
         arr[counter] = temp;
     }
     return arr;
-
 }
 
 const stepThroughCell = (row, col) => {    // recursive func
@@ -96,15 +95,17 @@ const stepThroughCell = (row, col) => {    // recursive func
             continue;
         // remove a wall from either horizontals or vericals
             // vericals
-        if (direction=='left'){
+        if (direction==='left') 
             verticals[row][col-1] =true;
-        }else if (direction=='right'){
+        else if (direction==='right')
             verticals[row][col] = true;
-        }
-
+        else if (direction==='up') 
+            horizontals[row-1][col] = true;
+        else if (direction==='down')
+            horizontals[row][col] = true;
     }
     // visit that next cell
 }
 
-stepThroughCell(1, 1);
+stepThroughCell(startRow, startColumn);
 // console.log(grid);
