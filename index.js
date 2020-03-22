@@ -26,8 +26,7 @@ const walls = [
     Bodies.rectangle(width / 2, height, width, 40, { isStatic: true }),
     Bodies.rectangle(0, height / 2, 40, height, { isStatic: true }),
     Bodies.rectangle(width, height / 2, 40, height, { isStatic: true })
-];
-
+  ];
 World.add(world, walls);
 
 // // Maze generation
@@ -107,7 +106,7 @@ const stepThroughCell = (row, col) => {    // recursive func
         // visit that next cell
         stepThroughCell(nextRow, nextCol);
     }
-}
+};
 
 stepThroughCell(startRow, startColumn);
 // console.log(grid);
@@ -120,16 +119,31 @@ horizontals.forEach( (row, rowIndex)=>{
             /*There is no way to stop or break a forEach() loop other than by throwing an 
             exception. If you need such behavior, the forEach() method is the wrong tool. */
         const wall = Bodies.rectangle(
-            colIndex = colIndex*unitLength + unitLength/2,
-            rowIndex = rowIndex*unitLength + unitLength,
+            // colIndex*unitLength + unitLength/2,
+            colIndex*unitLength + unitLength/2,
+            rowIndex*unitLength + unitLength,
             unitLength,
             5,
             {
                 isStatic: true
             }
-        )
+        );
         World.add(world, wall);
-    })
-    
+    });
 });
 
+verticals.forEach( (row, rowIndex) =>{
+    row.forEach((open, colIndex)=>{
+        if (open) return;
+        const wall = Bodies.rectangle(
+            colIndex*unitLength + unitLength,
+            rowIndex*unitLength + unitLength/2,
+            5,
+            unitLength,
+            {
+                isStatic: true
+            }
+        );
+        World.add(world, wall);
+    })
+})
