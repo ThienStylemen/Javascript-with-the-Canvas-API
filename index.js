@@ -148,6 +148,7 @@ verticals.forEach( (row, rowIndex) =>{
     })
 })
 
+//Goal
 const goal = Bodies.rectangle(
     width -unitLength/2,
     width -unitLength/2,
@@ -158,3 +159,13 @@ const goal = Bodies.rectangle(
     }
 )
 World.add(world,goal);
+
+const ball = Bodies.circle(
+    unitLength/2,
+    unitLength/2,
+    unitLength/3,
+    {
+        isStatic: true
+    }
+);
+World.add(world,ball);
