@@ -38,9 +38,9 @@ const grid = Array(cells)
     .fill(null)
     .map(() => Array(cells).fill(false)); //we're going to generate a brand new and different array
 
-console.log(grid);
-grid[0].push(true); // console.log before and after this line have the same result!!!
-console.log(grid);
+// console.log(grid);
+// grid[0].push(true); // console.log before and after this line have the same result!!!
+// console.log(grid);
 
 const verticals = Array(cells)
     .fill(null)
@@ -110,3 +110,15 @@ const stepThroughCell = (row, col) => {    // recursive func
 
 stepThroughCell(startRow, startColumn);
 // console.log(grid);
+
+// loop array true: no wall, false: wall
+horizontals.forEach( row=>{ 
+            // each element called open and it's either true or false
+    row.forEach( (open)=>{
+        if (open) return;   // don't draw anything
+            /*There is no way to stop or break a forEach() loop other than by throwing an 
+            exception. If you need such behavior, the forEach() method is the wrong tool. */
+        const wall = Bodies.rectangle()
+    })
+});
+
