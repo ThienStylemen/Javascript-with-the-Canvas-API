@@ -58,11 +58,16 @@ const startColumn = Math.floor(Math.random()*cells);
 
 const stepThroughCell = (row,col)=>{    // recursive func
     // if i have visited at cells [row,col], then return
-
+    if (grid[row][col] ===true) return;
     // Mark this cells as being visited
-
+    grid[row][col] = true;
     // Assemble randomly-ordered list of neighbors
-
+    const neighbors =[
+        [row-1,col],
+        [row,col+1],
+        [row+1, col],
+        [row,col-1]
+    ];
     // For each neighbor ...
 
     //see if that neighbors is out of bounds
@@ -75,3 +80,4 @@ const stepThroughCell = (row,col)=>{    // recursive func
 }
 
 stepThroughCell(startRow, startColumn);
+console.log(grid);
