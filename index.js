@@ -1,9 +1,10 @@
 const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 
-const cellsHorizontal = 4;
-const cellsVertical = 3;
+const cellsHorizontal = 14;
+const cellsVertical = 10;
 const width = this.innerWidth;  // window
 const height = this.innerHeight;
+
 const unitLengthX = width/cellsHorizontal;
 const unitLengthY = height/cellsVertical;
 
@@ -38,28 +39,28 @@ World.add(world, walls);
 // map: Calls a defined callback function on each element of an array, 
 //and returns an array that contains the results.
 
-const grid = Array(cells)
+const grid = Array(cellsVertical)
     .fill(null)
-    .map(() => Array(cells).fill(false)); //we're going to generate a brand new and different array
+    .map(() => Array(cellsHorizontal).fill(false)); //we're going to generate a brand new and different array
 
 // console.log(grid);
 // grid[0].push(true); // console.log before and after this line have the same result!!!
 // console.log(grid);
 
-const verticals = Array(cells)
+const verticals = Array(cellsVertical)
     .fill(null)
-    .map(() => Array(cells - 1).fill(false));
+    .map(() => Array(cellsHorizontal - 1).fill(false));
 
-const horizontals = Array(cells - 1)
+const horizontals = Array(cellsVertical - 1)
     .fill(null)
-    .map(() => Array(cells).fill(false));
+    .map(() => Array(cellsHorizontal).fill(false));
 
 // console.log(verticals);
 // console.log(horizontals);
 
-const startRow = Math.floor(Math.random() * cells);
-const startColumn = Math.floor(Math.random() * cells);
-
+const startRow = Math.floor(Math.random() * cellsVertical);
+const startColumn = Math.floor(Math.random() * cellsHorizontal);
+ 
 const shuffle = (arr) => {
     let counter = arr.length;
 
@@ -92,7 +93,7 @@ const stepThroughCell = (row, col) => {    // recursive func
     for (let neighbor of neighbors) {
         const [nextRow, nextCol, direction] = neighbor;
         //see if that neighbors is out of bounds
-        if (nextRow < 0 || nextRow >= cells || nextCol < 0 || nextCol >= cells)
+        if (nextRow < 0 || nextRow >= cellsVertical || nextCol < 0 || nextCol >= cellsHorizontal)
             continue;
         // if we have visited that neighbor, continue to the next 
         if (grid[nextRow][nextCol])
@@ -124,9 +125,9 @@ horizontals.forEach( (row, rowIndex)=>{
             exception. If you need such behavior, the forEach() method is the wrong tool. */
         const wall = Bodies.rectangle(
             // colIndex*unitLength + unitLength/2,
-            colIndex*unitLength + unitLength/2,
-            rowIndex*unitLength + unitLength,
-            unitLength,
+            colIndex*unitLengthX + unitLengthX/2,
+            rowIndex*unitLengthY + unitLengthY,
+            unitLengthX,
             5,
             {
                 label: 'wall',
@@ -141,10 +142,10 @@ verticals.forEach( (row, rowIndex) =>{
     row.forEach((open, colIndex)=>{
         if (open) return;
         const wall = Bodies.rectangle(
-            colIndex*unitLength + unitLength,
-            rowIndex*unitLength + unitLength/2,
+            colIndex*unitLengthX + unitLengthX,
+            rowIndex*unitLengthY + unitLengthY/2,
             5,
-            unitLength,
+            unitLengthY,
             {
                 label: 'wall',
                 isStatic: true
@@ -156,10 +157,10 @@ verticals.forEach( (row, rowIndex) =>{
 
 //Goal
 const goal = Bodies.rectangle(
-    width -unitLength/2,
-    width -unitLength/2,
-    unitLength*0.7,
-    unitLength*0.7,
+    width -unitLengthX/2,
+    width -unitLengthY/2,
+    unitLengthX*0.7,
+    unitLengthY*0.7,
     {
         isStatic: true,
         label: 'goal'
@@ -168,10 +169,11 @@ const goal = Bodies.rectangle(
 World.add(world,goal);
 
 //ball
+const ballRadious = Math.min(unitLengthX, unitLengthY)/3;
 const ball = Bodies.circle(
-    unitLength/2,
-    unitLength/2,
-    unitLength/3,
+    unitLengthX/2,
+    unitLengthY/2,
+    ballRadious,
     // option object
     {
         label: 'ball'
