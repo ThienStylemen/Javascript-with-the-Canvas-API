@@ -17,7 +17,7 @@ const render = Render.create({
     element: document.body, // where we want to show
     engine: engine,
     options: {
-        wireframes: true,   //wireframes is just to modify a shown map 
+        wireframes: false,   //wireframes is to modify a shown map(color) 
         width,  //:800, // key and the value are the same
         height
     }
@@ -131,7 +131,10 @@ horizontals.forEach( (row, rowIndex)=>{
             5,
             {
                 label: 'wall',
-                isStatic: true
+                isStatic: true,
+                render: {   // color
+                    fillStyle: 'red'
+                }
             }
         );
         World.add(world, wall);
@@ -148,7 +151,10 @@ verticals.forEach( (row, rowIndex) =>{
             unitLengthY,
             {
                 label: 'wall',
-                isStatic: true
+                isStatic: true,
+                render: {   // color
+                    fillStyle: 'red'
+                }
             }
         );
         World.add(world, wall);
@@ -163,7 +169,10 @@ const goal = Bodies.rectangle(
     unitLengthY*0.7,
     {
         isStatic: true,
-        label: 'goal'
+        label: 'goal',
+        render: {   // color
+            fillStyle: 'green'
+        }
     }
 )
 World.add(world,goal);
@@ -177,6 +186,7 @@ const ball = Bodies.circle(
     // option object
     {
         label: 'ball'
+
     }
 );
 World.add(world,ball);
