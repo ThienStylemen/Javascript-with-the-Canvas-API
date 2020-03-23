@@ -1,9 +1,11 @@
 const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 
-const cells = 6;
-const width = this.innerWidth;
+const cellsHorizontal = 4;
+const cellsVertical = 3;
+const width = this.innerWidth;  // window
 const height = this.innerHeight;
-const unitLength = width/cells;
+const unitLengthX = width/cellsHorizontal;
+const unitLengthY = height/cellsVertical;
 
 const engine = Engine.create();
 const { world } = engine;
