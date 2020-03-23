@@ -1,7 +1,7 @@
 const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 
-const cellsHorizontal = 14;
-const cellsVertical = 10;
+const cellsHorizontal = 3;
+const cellsVertical = 2;
 const width = this.innerWidth;  // window
 const height = this.innerHeight;
 
@@ -164,7 +164,7 @@ verticals.forEach( (row, rowIndex) =>{
 //Goal
 const goal = Bodies.rectangle(
     width -unitLengthX/2,
-    width -unitLengthY/2,
+    height -unitLengthY/2,
     unitLengthX*0.7,
     unitLengthY*0.7,
     {
@@ -218,6 +218,7 @@ Events.on(engine,'collisionStart', event =>{
         const labels= ['goal','ball'];
         if (labels.includes(collision.bodyA.label) && labels.includes(collision.bodyB.label)){
             // console.log('USER WIN');   
+            document.querySelector('.winner').classList.remove('hidden');
             world.gravity.y=1;
             world.bodies.forEach(body =>{
                 if (body.label==='wall'){
